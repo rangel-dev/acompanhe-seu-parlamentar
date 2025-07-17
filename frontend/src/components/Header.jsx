@@ -1,16 +1,22 @@
-function Header() {
- const headerStyle = {
-   padding: '20px',
-   backgroundColor: '#f0f0f0',
-   textAlign: 'center',
-   borderBottom: '1px solid #ddd'
- };
+// src/components/Header.jsx
+import React from 'react';
+import { Title, Group, Box } from '@mantine/core';
+import * as TablerIcons from '@tabler/icons-react';
 
- return (
-   <header style={headerStyle}>
-     <h2>🏛️ Acompanhe seu Parlamentar</h2>
-   </header>
- );
+function Header() {
+  return (
+    <Group justify="center" h="100%">
+      <Box component="span" visibleFrom="sm">
+        <TablerIcons.IconBuildingBank size={32} />
+      </Box>
+      <Title
+        order={1}
+        size={{ base: 'h3', sm: 'h1' }}
+      >
+        Acompanhe seu Parlamentar
+      </Title>
+    </Group>
+  );
 }
 
 export default Header;
