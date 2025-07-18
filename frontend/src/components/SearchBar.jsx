@@ -19,6 +19,7 @@ function SearchBar({ onSearchChange }) {
       leftSection={<IconSearch size={16} />}
       size="lg"
       my="xl"
+      ta={'center'}
       value={valor} 
       onChange={handleChange}
     />

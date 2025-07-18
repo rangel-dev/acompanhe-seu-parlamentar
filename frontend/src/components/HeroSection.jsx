@@ -1,39 +1,63 @@
-import { Title, Text, Container, Overlay, Box } from '@mantine/core';
-import SearchBar from './SearchBar'; // Vamos colocar a busca dentro do Hero
+// src/components/HeroSection.jsx
+import { Title, Text, Container, Box, Button, useMantineColorScheme, Stack } from '@mantine/core';
+import SearchBar from './SearchBar';
+import { IconSearch } from '@tabler/icons-react';
 
 function HeroSection({ onSearchChange }) {
+  const { colorScheme } = useMantineColorScheme();
+  const backgroundColor = colorScheme === 'dark' ? '#282e46' : '#f3f3f3';
+  const textColor = colorScheme === 'dark' ? 'white' : 'black';
+  const secondaryTextColor = colorScheme === 'dark' ? 'gray.4' : 'gray.7';
+  const buttonColor = colorScheme === 'dark' ? 'brand.5' : 'brand.6';
+
   return (
     <Box
-      h={400} // h = height
+      h={{ base: 450, sm: 400 }}
+      bg={backgroundColor}
+      // 1. AQUI ESTÁ A PRIMEIRA MUDANÇA:
+      // Adicionamos um padding horizontal (px) diretamente no Box principal.
+      // Isso cria uma "margem de segurança" nas laterais em todas as telas.
+      px="md"
       style={{
-        position: 'relative',
-        backgroundImage: 'url(https://www.camara.leg.br/midias/image/2022/03/vista-noturna-do-congresso-nacional-foto-de-maryanna-oliveira-camara-dos-deputados-2-1.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'background-color 0.3s ease',
       }}
     >
-      <Overlay color="#000" opacity={0.6} zIndex={1} />
+      <Container size="md">
+        <Stack align="center" gap="md">
+          <Title
+            c={textColor}
+            ta="center"
+            // 2. AQUI ESTÁ A SEGUNDA MUDANÇA:
+            // Diminuímos o tamanho da fonte base para 30px.
+            // Isso garante que o título não "vaze" em telas muito estreitas.
+            fz={{ base: 30, sm: 50 }}
+          >
+            Fiscalize, de perto!
+          </Title>
 
-      <Container
-        size="md"
-        h="100%"
-        style={{
-          position: 'relative',
-          zIndex: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
-        }}
-      >
-        <Title c="white" fz={50}>Fiscalize. De perto.</Title>
-        <Text c="white" my="md">
-          A democracia se fortalece com transparência. Saiba como cada parlamentar vota no Congresso Nacional.
-        </Text>
-        <Box w="100%" maw={600} mt="md">
-          <SearchBar onSearchChange={onSearchChange} />
-        </Box>
+          <Text c={secondaryTextColor} ta="center" fz="lg">
+            A democracia se fortalece com transparência. Saiba como cada parlamentar
+            vota no Congresso Nacional.
+          </Text>
+
+          <Box w="100%" maw={600}>
+            <SearchBar onSearchChange={onSearchChange} />
+          </Box>
+
+          <Button
+            mt="sm"
+            size="lg"
+            radius="xl"
+            leftSection={<IconSearch size={20} />}
+            color={buttonColor}
+            variant="filled"
+          >
+            Pesquisar
+          </Button>
+        </Stack>
       </Container>
     </Box>
   );
